@@ -1,35 +1,24 @@
-from fastapi import FastAPI
+import os
+from typing import Any, Dict, Optional
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+# runner doit être présent DANS LE MÊME REPO que api.py (sinon: crash)
+try:
+    import runner  # ton runner.py
+except Exception as e:
+    raise RuntimeError(
+        "api.py dépend de runner.py, mais l'import a échoué. "
+        "Assure-toi que api.py et runner.py sont dans le même projet. "
+        f"Erreur: {e}"
+    )
 
 app = FastAPI(
     title="Kenbot API",
     version="1.0.0",
     description="Swagger Kenbot (API standalone).",
 )
-
-@app.get("/")
-def root():
-    return {"service": "kenbot-api", "docs": "/docs"}
-
-@app.get("/health")
-def health():
-    return {"ok": True}
-
-# -------------------------
-# Models
-# -------------------------
-class RunOptions(BaseModel):
-    dry_run: Optional[bool] = None
-    max_targets: Optional[int] = None
-    force_stock: Optional[str] = None
-    rebuild_posts: Optional[bool] = None
-    rebuild_limit: Optional[int] = None
-
-
-class BasicReply(BaseModel):
-    ok: bool
-    message: str
-    data: Dict[str, Any] = {}
-
 
 # -------------------------
 # Helpers
