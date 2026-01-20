@@ -9,11 +9,21 @@ from pydantic import BaseModel
 import runner  # ton runner.py
 
 
+from fastapi import FastAPI
+
 app = FastAPI(
-    title="Kenbot Runner API",
+    title="Kenbot API",
     version="1.0.0",
-    description="API Kenbot (Scrape Kennebec + Supabase + Facebook + RAW audit + SOLD/RESTORE).",
+    description="Swagger Kenbot (API standalone).",
 )
+
+@app.get("/health")
+def health():
+    return {"ok": True}
+
+@app.get("/")
+def root():
+    return {"service": "kenbot-api", "docs": "/docs"}
 
 # -------------------------
 # Models
