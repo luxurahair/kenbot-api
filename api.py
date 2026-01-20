@@ -13,6 +13,7 @@ def health():
 @app.get("/")
 def root():
     return {"service": "kenbot-api", "docs": "/docs"}
+
 # -------------------------
 # Models
 # -------------------------
