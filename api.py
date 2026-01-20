@@ -6,13 +6,13 @@ app = FastAPI(
     description="Swagger Kenbot (API standalone).",
 )
 
-@app.get("/health")
-def health():
-    return {"ok": True}
-
 @app.get("/")
 def root():
     return {"service": "kenbot-api", "docs": "/docs"}
+
+@app.get("/health")
+def health():
+    return {"ok": True}
 
 # -------------------------
 # Models
