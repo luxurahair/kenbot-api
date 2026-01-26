@@ -4,15 +4,6 @@ from typing import Any, Dict, Optional
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-# runner doit être présent DANS LE MÊME REPO que api.py (sinon: crash)
-try:
-    import runner  # ton runner.py
-except Exception as e:
-    raise RuntimeError(
-        "api.py dépend de runner.py, mais l'import a échoué. "
-        "Assure-toi que api.py et runner.py sont dans le même projet. "
-        f"Erreur: {e}"
-    )
 
 app = FastAPI(
     title="Kenbot API",
